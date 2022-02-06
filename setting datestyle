@@ -1,0 +1,57 @@
+Way 1 : setting datestyle Per Database Only
+
+show datestyle; show you current date style "ISO, DMY" or "ISO, MDY"
+
+Now depending on what you want in postgres DMY or MDY set in below query
+
+ALTER DATABASE "my_database_name" SET datestyle TO "ISO, DMY";
+
+or
+
+ALTER DATABASE "my_database_name" SET datestyle TO "ISO, MDY";
+
+Most important step : Always after setting datestyle restart postgres
+
+sudo service postgresql restart
+
+Or
+
+sudo /etc/init.d/postgresql restart
+
+Lets test configuration
+
+if you have set DMY below query should work for you
+
+Query:select '20/12/2016'::date Output: "2016-12-20"
+
+Or
+
+if you have set MDY below query should work for you
+
+Query:select '12/19/2016'::date Output: "2016-12-19"
+
+Way 2 : Permanently : whatever you set in config file will be set in all databases you will create in future
+
+In /etc/postgresql/9.3/main/postgresql.conf set
+
+datestyle = 'iso, dmy' OR datestyle = 'iso, mdy'
+
+Most important step : Always after setting datestyle restart postgres
+
+sudo service postgresql restart
+
+Or
+
+sudo /etc/init.d/postgresql restart
+
+Lets test configuration
+
+if you have set DMY below query should work for you
+
+Query:select '20/12/2016'::date Output: "2016-12-20"
+
+Or
+
+if you have set MDY below query should work for you
+
+Query:select '12/19/2016'::date Output: "2016-12-19"
